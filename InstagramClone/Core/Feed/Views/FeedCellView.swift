@@ -8,27 +8,31 @@
 import SwiftUI
 
 struct FeedCellView: View {
+    
+    let post: Post
     var body: some View {
         VStack {
             //img + username
             HStack {
-                Image("image-1")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
-                
-                
-                Text("TEXT")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
+                if let user = post.user {
+                    Image(user.profileImageUrl ?? "")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                    
+                    
+                    Text(user.username)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                }
                 
                 Spacer()
             }
             .padding(.leading, 8)
             
             //post image
-            Image("image-1")
+            Image(post.imageUrl)
                 .resizable()
                 .scaledToFill()
                 .frame(height: 400)
@@ -65,7 +69,7 @@ struct FeedCellView: View {
             .foregroundColor(.black)
             
             //like labels
-            Text("23 Likes")
+            Text("\(post.likes) likes")
                 .font(.footnote)
                 .fontWeight(.semibold)
                 .padding(.leading, 10)
@@ -74,8 +78,8 @@ struct FeedCellView: View {
             
             //caption labels
             HStack {
-                Text("TEST").fontWeight(.semibold) +
-                Text(" @test").foregroundColor(.secondary)
+                Text("\(post.user?.username ?? "") ").fontWeight(.semibold) +
+                Text(post.caption).foregroundColor(.secondary)
                 Spacer()
             }
             .font(.footnote)
@@ -93,6 +97,8 @@ struct FeedCellView: View {
     }
 }
 
-#Preview {
-    FeedCellView()
+struct FeedCell_Previews: PreviewProvider {
+    static var previews: some View {
+        FeedCellView(post: Post.MOCK_POSTS[0])
+    }
 }
