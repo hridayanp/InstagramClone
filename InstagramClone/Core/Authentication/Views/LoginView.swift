@@ -12,6 +12,8 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
+  
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -32,7 +34,7 @@ struct LoginView: View {
                 }
                 
                 Button {
-                    print("SHow forgot pass")
+                    print("Show forgot pass")
                 } label: {
                     Text("Forgot Password?")
                         .font(.footnote)
@@ -83,6 +85,7 @@ struct LoginView: View {
                 
                 NavigationLink {
                     AddEmailView()
+                       
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack {

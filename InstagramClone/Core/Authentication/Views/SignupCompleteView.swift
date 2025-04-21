@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct SignupCompleteView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+  
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
         VStack(spacing:12) {
             Spacer()
-            Text("Welcome to Instagram")
+            Text("Welcome to Instagram, \(viewModel.username)")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .frame(width: 360)
@@ -30,7 +30,9 @@ struct SignupCompleteView: View {
                 .multilineTextAlignment(.center)
             
             Button {
-                print("Sign up")
+               Task {
+                   try await viewModel.createUser()
+                }
             } label: {
                 Text("Complete Sign Up")
                     .modifier(IGButtonModifier())

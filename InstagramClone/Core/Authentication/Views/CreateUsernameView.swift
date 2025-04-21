@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CreateUsernameView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+    
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
         VStack(spacing:12) {
@@ -27,11 +27,11 @@ struct CreateUsernameView: View {
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
             
-            TextField("Username", text: $email)
+            TextField("Username", text: $viewModel.username)
                 .autocapitalization(.none)
                 .modifier(IGTextFieldModifier())
             
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $viewModel.password)
                 .modifier(IGTextFieldModifier())
             
             NavigationLink {
