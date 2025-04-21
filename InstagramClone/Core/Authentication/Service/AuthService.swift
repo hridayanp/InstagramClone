@@ -72,7 +72,7 @@ class AuthService {
     func signOut() {
         try? Auth.auth().signOut()
         self.userSession = nil
-        
+        self.currentUser = nil
     }
     
     private func uploadUserData(uid: String, username: String, email: String) async {
