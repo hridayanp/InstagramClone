@@ -9,6 +9,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
+@MainActor
 class UploadPostViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
