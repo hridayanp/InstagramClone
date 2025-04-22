@@ -82,7 +82,7 @@ struct ProfileHeaderView: View {
             
         }
         .fullScreenCover(isPresented: $showEditProfile) {
-            Text("EDIT PROFILE VIEW")
+            EditProfileView(user: user)
         }
         
     }
