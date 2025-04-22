@@ -9,19 +9,33 @@ import SwiftUI
 struct SearchView: View {
     
     @State private var searchText: String = ""
+    
+    @StateObject var viewModel = SearchViewModel()
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 14) {
-                    ForEach(User.MOCK_USERS) { user in
+                    ForEach(viewModel.users) { user in
                         NavigationLink(value: user) {
                             HStack {
-                                Image(user.profileImageUrl ?? "")
-                                    .resizable()
-                                    .scaledToFill()
+                                if let imageUrl = user.profileImageUrl, !imageUrl.isEmpty {
+                                    AsyncImage(url: URL(string: imageUrl)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
                                     .frame(width: 40, height: 40)
                                     .clipShape(Circle())
+                                } else {
+                                    Image(systemName: "person.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(.gray)
+                                }
                                 
                                 
                                 VStack(alignment: .leading) {
@@ -57,6 +71,8 @@ struct SearchView: View {
 
 
 
-#Preview {
-    SearchView()
+struct SearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchView()
+    }
 }
